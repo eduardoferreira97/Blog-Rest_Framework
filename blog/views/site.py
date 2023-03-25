@@ -9,8 +9,8 @@ from django.shortcuts import (get_list_or_404, get_object_or_404, redirect,
                               render)
 from django.utils import timezone
 
-from .forms import ContactForm, PostForm
-from .models import Post
+from ..forms import ContactForm, PostForm
+from ..models import Post
 
 
 def contato(request):
