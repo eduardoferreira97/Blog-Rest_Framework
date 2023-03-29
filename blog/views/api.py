@@ -19,11 +19,38 @@ def post_api_list(request):
         serializer = PostSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+        return Response(serializer.validated_data,
+                        status=status.HTTP_201_CREATED)
 
 
-@api_view()
+@api_view(['get', 'patch', 'delete'])
 def post_api_detail(request, pk):
+
     post = get_object_or_404(Post.objects, pk=pk)
-    serializer = PostSerializer(instance=post)
-    return Response(serializer.data)
+
+    if request.method == 'GET':
+
+        serializer = PostSerializer(
+            instance=post,
+            context={'request': request},
+            many=True)
+
+        return Response(serializer.data)
+
+    elif request.method == 'PATCH':
+
+        serializer = PostSerializer(
+            instance=post,
+            data=request.data,
+            context={'request': request},
+            partial=True,
+        )
+
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        post.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)

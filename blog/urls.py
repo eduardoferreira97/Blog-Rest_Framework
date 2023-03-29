@@ -15,5 +15,6 @@ urlpatterns = [
     path('contato/', site.contato, name="contato"),
 
     path('posts/api/v1/', api.post_api_list, name="post_api_v1"),
-    path('posts/api/v1/<int:pk>', api.post_api_detail, name="post_api_v1_detail"),
+    path('posts/api/v1/<int:pk>', api.post_api_detail,
+         name="post_api_v1_detail"),
 ]

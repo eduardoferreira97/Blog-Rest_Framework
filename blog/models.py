@@ -58,7 +58,7 @@ class Post(models.Model):
             )
             self.slug = slugify(f'{self.title}-{rand_letters}')
 
-        saved = super().save(*args, **kwargs)
+        # saved = super().save(*args, **kwargs)
 
         if self.cover:
             try:
